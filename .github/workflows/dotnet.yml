@@ -26,3 +26,13 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Create ZIP of Build Output
+      run: |
+        mkdir -p ./artifacts
+        zip -r ./artifacts/build_output.zip ./GildedRose/bin/Release/net8.0
+    - name: Upload Build ZIP Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-output
+        path: ./artifacts/build_output.zip
+
